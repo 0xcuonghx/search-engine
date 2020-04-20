@@ -1,0 +1,6 @@
+# start solr
+C:\solr-8.5.0\bin\solr.cmd start
+# create core IR4853
+C:\solr-8.5.0\bin\solr.cmd create -c IT4853
+# import data to solr
+curl "http://localhost:8983/solr/IT4853/update?commit=true&trim=true" --data-binary @C:\IR-IT4853\crawler\data\2020-04-17.csv -H "Content-type:application/csv"
