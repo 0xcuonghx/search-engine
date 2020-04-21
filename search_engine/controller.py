@@ -17,7 +17,7 @@ def connect_solr():
 def search (query, page=1):
     try:
         solr = connect_solr()
-        results = solr.search("content:{}".format(query), **{'fl': 'title, score', 'start': '{}'.format((page - 1)*10)})
+        results = solr.search("content:{}".format(query), **{'fl': '*, score', 'start': '{}'.format((page - 1)*10)})
         return results
     except Exception:
         print("[ERROR] search error: Something went wrong!")
@@ -41,6 +41,6 @@ def search_synonym (query):
 
 # search_synonym("Cộng hòa xã hội chủ nghĩa Việt Nam và tôi")
 
-results = search("tình hình việt nam")
-for doc in results:
-    print(doc)
+# results = search("tình hình việt nam")
+# for doc in results:
+#     print(doc)

@@ -22,7 +22,7 @@
       </div>
     </section>
     <!-- Content -->
-    <div class="tile is-ancestor" style="height: 70vh;">
+    <div class="tile is-ancestor" style="min-height: 70vh;">
       <div class="tile is-vertical is-8">
         <div class="tile is-parent">
           <article class="tile is-child notification">
@@ -41,26 +41,27 @@
                   </div>
                 </div>
               </form>
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong><a href="http://a.com" target="_blank">title</a></strong>
-                      <br>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
-                      tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                    </p>
-                  </div>
-                  <nav class="level is-mobile">
-                    <div class="level-left">
-                      <a class="level-item">
-                        Show more ...<i class="fas fa-angle-double-right"></i></i>
-                      </a>
+              
+              {% for x in results %}
+                <article class="media">
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong><a href="http://a.com" target="_blank">{{x["title"]}}</a></strong>
+                        <br>
+                        {{x["content"]}}
+                      </p>
                     </div>
-                  </nav>
-                </div>
-              </article>
+                    <nav class="level is-mobile">
+                      <div class="level-left">
+                        <a class="level-item">
+                          Show more ...<i class="fas fa-angle-double-right"></i></i>
+                        </a>
+                      </div>
+                    </nav>
+                  </div>
+                </article>
+              {% endfor %}
             </div>
           </article>
         </div>
@@ -78,6 +79,7 @@
       </div>
     </div>
   </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="content has-text-centered">
