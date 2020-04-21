@@ -14,10 +14,10 @@ def connect_solr():
         print("[ERROR] Connect_error: Something went wrong!")
         return
 
-def search (query):
+def search (query, page=1):
     try:
         solr = connect_solr()
-        results = solr.search("content:{}".format(query))
+        results = solr.search("content:{}".format(query), **{'fl': 'title, score', 'start': '{}'.format((page - 1)*10)})
         return results
     except Exception:
         print("[ERROR] search error: Something went wrong!")
@@ -29,7 +29,7 @@ def search_synonym (query):
         list_words = ViTokenizer.tokenize(query).split()
         stopwords = utils.get_stopwords()
 
-        words = []
+        words = [] # word after remove stop word
         for word in list_words:
             if word not in stopwords:
                 words.append(word)
@@ -42,3 +42,5 @@ def search_synonym (query):
 # search_synonym("Cộng hòa xã hội chủ nghĩa Việt Nam và tôi")
 
 results = search("tình hình việt nam")
+for doc in results:
+    print(doc)

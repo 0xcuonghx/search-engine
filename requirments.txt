@@ -3,4 +3,4 @@ pandas
 beautifulsoap4
 pysolr
 pyvi
-gensim
+flask
