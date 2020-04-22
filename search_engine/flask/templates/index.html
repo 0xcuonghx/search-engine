@@ -28,26 +28,26 @@
           <article class="tile is-child notification">
             <div class="content">
               <!-- Content -->
-              <form method="POST">
+              <form method="GET">
                 <div class="columns">
                   <div class="column">
                     <h4 class="title is-4">Solar</h4>
                   </div>
                   <div class="column is-three-quarters">
-                    <input class="input" type="text" name="value" placeholder="Nhập từ khóa tìm kiếm">
+                    <input class="input" type="text" name="value" placeholder="Nhập từ khóa tìm kiếm" value={{searchValue}}>
                   </div>
                   <div class="column">
                     <button class="button" type="submit">Search</button>
                   </div>
                 </div>
               </form>
-              
+              {% if results %}
               {% for x in results %}
                 <article class="media">
                   <div class="media-content">
                     <div class="content">
                       <p>
-                        <strong><a href="http://a.com" target="_blank">{{x["title"]}}</a></strong>
+                        <strong><a href={{x["url"]}} target="_blank">{{x["title"]}}</a></strong>
                         <br>
                         {{x["content"]}}
                       </p>
@@ -62,6 +62,7 @@
                   </div>
                 </article>
               {% endfor %}
+              {% endif %}
             </div>
           </article>
         </div>
@@ -79,6 +80,21 @@
       </div>
     </div>
   </div>
+
+  <nav class="pagination" role="navigation" aria-label="pagination">
+    <ul class="pagination-list">
+      <!-- <li>
+        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+      </li>
+      <li>
+        <a class="pagination-link" aria-label="Goto page 2">2</a>
+      </li>
+      <li>
+        <a class="pagination-link" aria-label="Goto page 3">3</a>
+      </li> -->
+      
+    </ul>
+  </nav>
 
   <!-- Footer -->
   <footer class="footer">
