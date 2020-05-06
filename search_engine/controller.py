@@ -17,7 +17,16 @@ def connect_solr():
 def search (query, page=1):
     try:
         solr = connect_solr()
-        results = solr.search("content:{}".format(query), **{'fl': '*, score', 'start': '{}'.format((page - 1)*10)})
+        list_words = ViTokenizer.tokenize(query).split()
+        stopwords = utils.get_stopwords()
+
+        words = [] # word after remove stop word
+        for word in list_words:
+            if word not in stopwords:
+                words.append(word)
+        clean_query = ' '.join(words)
+
+        results = solr.search("content_clean:{}".format(clean_query), **{'fl': '*, score', 'start': '{}'.format((page - 1)*10)})
         return results
     except Exception:
         print("[ERROR] search error: Something went wrong!")
