@@ -9,6 +9,7 @@ def connect_solr():
     try:
         solr = pysolr.Solr(SOLR_SERVER, always_commit=True)
         solr.ping() # check solr alive
+        print("Connection success!!")
         return solr
     except Exception:
         print("[ERROR] Connect_error: Something went wrong!")
@@ -19,15 +20,13 @@ def search (query, page=1):
         solr = connect_solr()
         list_words = ViTokenizer.tokenize(query).split()
         stopwords = utils.get_stopwords()
-
         words = [] # word after remove stop word
         for word in list_words:
             if word not in stopwords:
                 words.append(word)
         clean_query = ' '.join(words)
-
         results = solr.search("content_clean:{}".format(clean_query), **{'fl': '*, score', 'start': '{}'.format((page - 1)*10)})
-        return results
+        return { "results": results, "numFound": results.raw_response['response']['numFound']}
     except Exception:
         print("[ERROR] search error: Something went wrong!")
 
@@ -48,8 +47,4 @@ def search_synonym (query):
         print("[ERROR] search synoym error: Something went wrong!")
 
 
-# search_synonym("Cộng hòa xã hội chủ nghĩa Việt Nam và tôi")
-
-# results = search("tình hình việt nam")
-# for doc in results:
-#     print(doc)
+search("covid", 1)

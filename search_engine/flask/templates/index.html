@@ -41,15 +41,17 @@
                   </div>
                 </div>
               </form>
+              <span><i>Tổng {{numFound}} kết quả tìm kiếm</i></span>
               {% if results %}
               {% for x in results %}
                 <article class="media">
                   <div class="media-content">
                     <div class="content">
                       <p>
-                        <strong><a href={{x["url"]}} target="_blank">{{x["title"]}}</a></strong>
+                        <strong><a href={{x["url"][0]}} target="_blank">{{x["title"][0]}}</a></strong>
+                        <span class="tag is-danger">{{x["score"]}}</span>
                         <br>
-                        {{x["content"]}}
+                        {{x["content"][0]}}
                       </p>
                     </div>
                     <nav class="level is-mobile">
@@ -70,18 +72,18 @@
     </div>
   </div>
 
-  <nav class="pagination" role="navigation" aria-label="pagination">
+  <nav class="pagination" role="navigation" aria-label="pagination" style="width:80%;margin-left: 10%;">
     <ul class="pagination-list">
-      <!-- <li>
-        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-      </li>
-      <li>
-        <a class="pagination-link" aria-label="Goto page 2">2</a>
-      </li>
-      <li>
-        <a class="pagination-link" aria-label="Goto page 3">3</a>
-      </li> -->
-      
+      {% set numberPage = numFound//10 %}
+      {% for x in range(1,numberPage) %}
+        <li>
+          {% if x==page %}
+            <a class="pagination-link is-current" aria-current="page">{{x}}</a>
+          {% else %}
+            <a class="pagination-link" aria-current="page">{{x}}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
     </ul>
   </nav>
 

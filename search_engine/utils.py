@@ -1,7 +1,6 @@
-
 def get_stopwords ():
     stopwords = []
-    f = open('stopwords.txt', 'r', encoding="utf-8")
+    f = open('C:\IR-IT4853\stopwords.txt', 'r', encoding="utf-8")
     for word in f:
         stopwords.append(word.strip())
     f.close()
@@ -11,4 +10,4 @@ def get_synonym_of(word):
     
     return ''
 
-get_synonym_of("hoặc")
+get_stopwords()
