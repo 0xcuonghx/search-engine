@@ -37,18 +37,20 @@ def clean_data (content):
     return ' '.join(words)
 
 def check_url_already_exist (url):
-    f = open('url_exist.txt', 'a+')
+    f = open('url_exist.txt', 'r')
     url_exist = []
     for o in f:
-        url_exist.append(o)
-
+        url_exist.append(o.strip())
+    f.close()
+    f = open('url_exist.txt', 'a+')
     if url not in url_exist:
         f.write(url)
         f.write("\n")
         f.close()
         return False
-    f.close()
-    return True
+    else:
+        f.close()
+        return True
 
 def get_articles (url):
     soup = get_source_from(url)
