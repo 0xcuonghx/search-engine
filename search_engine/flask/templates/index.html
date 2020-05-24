@@ -48,16 +48,24 @@
                   <div class="media-content">
                     <div class="content">
                       <p>
-                        <strong><a href={{x["url"][0]}} target="_blank">{{x["title"][0]}}</a></strong>
+                        {% if x["url"] %}
+                          <strong><a href={{x["url"][0]}} target="_blank">
+                            {% if x["title"] %}
+                              {{x["title"][0]}}
+                            {% endif %}
+                          </a></strong>
+                        {% endif %}
                         <span class="tag is-danger">{{x["score"]}}</span>
                         <br>
-                        {{x["content"][0]}}
+                        {% if x["content"] %}
+                          {{x["content"][0]}}
+                        {% endif %}
                       </p>
                     </div>
                     <nav class="level is-mobile">
                       <div class="level-left">
                         <a class="level-item">
-                          Show more ...<i class="fas fa-angle-double-right"></i></i>
+                          <!-- Show more ...<i class="fas fa-angle-double-right"></i></i> -->
                         </a>
                       </div>
                     </nav>
@@ -72,18 +80,54 @@
     </div>
   </div>
 
-  <nav class="pagination" role="navigation" aria-label="pagination" style="width:80%;margin-left: 10%;">
+  <nav class="pagination is-centered" role="navigation" aria-label="pagination" style="width:80%;margin-left: 10%;margin-top: 10px;">
+    {% if numFound % 10 > 0%}
+      {% set numberPage = numFound//10 + 1%}
+    {% else %}
+      {% set numberPage = numFound//10 - 1%}
+    {% endif %}
+    <!-- {% set numberPage = numFound//10%} -->
+    {% if page > 1 %}
+    <a class="pagination-previous" onclick="handlePaginigation({{page-1}})">Previous</a>
+    {% endif %}
+    {% if page < numberPage %}
+    <a class="pagination-next" onclick="handlePaginigation({{page+1}})">Next page</a>
+    {% endif %}
     <ul class="pagination-list">
-      {% set numberPage = numFound//10 %}
-      {% for x in range(1,numberPage) %}
+      {% if numberPage <= 6 %}
+      {% for x in range(1,numberPage+1) %}
         <li>
           {% if x==page %}
             <a class="pagination-link is-current" aria-current="page">{{x}}</a>
           {% else %}
-            <a class="pagination-link" aria-current="page">{{x}}</a>
+            <a class="pagination-link" aria-current="page" onclick="handlePaginigation({{x}})">{{x}}</a>
           {% endif %}
         </li>
       {% endfor %}
+      {% else %}
+      {% for x in range(1,4) %}
+        <li>
+          {% if x==page %}
+            <a class="pagination-link is-current" aria-current="page">{{x}}</a>
+          {% else %}
+            <a class="pagination-link" aria-current="page" onclick="handlePaginigation({{x}})">{{x}}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      {% if page==4 %}
+        <a class="pagination-link is-current" aria-current="page">4</a>
+      {% endif %}
+      <li><span class="pagination-ellipsis">&hellip;</span></li>
+      {% if page > 4 and page != numberPage %}
+        <a class="pagination-link is-current" aria-current="page">{{page}}</a>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+      {% endif %}
+      {% if page == numberPage %}
+        <li><a class="pagination-link is-current" aria-label="Goto page 3" onclick="handlePaginigation({{numberPage}})">{{numberPage}}</a></li>
+      {% else %}
+        <li><a class="pagination-link" aria-label="Goto page 3" onclick="handlePaginigation({{numberPage}})">{{numberPage}}</a></li>
+      {% endif %}
+      {% endif %}
     </ul>
   </nav>
 
@@ -99,3 +143,10 @@
 </body>
 
 </html>
+<script>
+  function handlePaginigation(page=1) {
+    const params = new URLSearchParams(location.search);
+    params.set('page', page);
+    document.location=`?${params.toString()}`
+  }
+</script>

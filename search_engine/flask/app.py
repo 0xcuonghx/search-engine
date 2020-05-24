@@ -12,7 +12,8 @@ def home():
   if request.args.get("value"):
     searchValue = request.args.get("value")
   if request.args.get("page"):
-    searchValue = request.args.get("page")
+    page = request.args.get("page")
+    page = int(page)
   rs = controller.search(searchValue, page)
   return render_template('index.html', results=rs["results"], numFound=rs["numFound"], searchValue=searchValue, page=page)
 

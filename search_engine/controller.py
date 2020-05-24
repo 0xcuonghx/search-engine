@@ -24,8 +24,12 @@ def search (query, page=1):
         for word in list_words:
             if word not in stopwords:
                 words.append(word)
-        clean_query = ' '.join(words)
-        results = solr.search("content_clean:{}".format(clean_query), **{'fl': '*, score', 'start': '{}'.format((page - 1)*10)})
+        if len(words) == 0:
+            return { "results": [], "numFound": 0 }
+        else:            
+            clean_query = ' '.join(words)
+            page = int(page)
+            results = solr.search("content_clean:{}".format(clean_query), **{'fl': '*, score', 'start': "{}".format((page - 1)*10)})
         return { "results": results, "numFound": results.raw_response['response']['numFound']}
     except Exception:
         print("[ERROR] search error: Something went wrong!")
@@ -47,4 +51,4 @@ def search_synonym (query):
         print("[ERROR] search synoym error: Something went wrong!")
 
 
-search("covid", 1)
+search("", 1)
