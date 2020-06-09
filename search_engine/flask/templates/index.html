@@ -58,17 +58,21 @@
                         <span class="tag is-danger">{{x["score"]}}</span>
                         <br>
                         {% if x["content"] %}
-                          {{x["content"][0]}}
+                          {% if x["content"][0]|length > 350 %}
+                            {{x["content"][0][:350]}}
+                            <span id="show-more" style="display: none;">{{x["content"][0][350:]}}</span>
+                            <a style="color: #74b9ff;" onclick="showMoreContent(this)">
+                              Show more ...<i class="fas fa-angle-double-right"></i>
+                            </a>
+                            <a style="color: #74b9ff; display: none;" onclick="showLessContent(this)">
+                              <i class="fas fa-angle-double-left"></i> Show less 
+                            </a>
+                          {% else %}
+                            {{x["content"][0]}}
+                          {% endif %}
                         {% endif %}
                       </p>
                     </div>
-                    <nav class="level is-mobile">
-                      <div class="level-left">
-                        <a class="level-item">
-                          <!-- Show more ...<i class="fas fa-angle-double-right"></i></i> -->
-                        </a>
-                      </div>
-                    </nav>
                   </div>
                 </article>
               {% endfor %}
@@ -148,5 +152,17 @@
     const params = new URLSearchParams(location.search);
     params.set('page', page);
     document.location=`?${params.toString()}`
+  }
+
+  function showMoreContent(event) {
+    event.style.display = "none";
+    event.previousElementSibling.style.display="inline";
+    event.nextElementSibling.style.display="inline";
+  }
+
+  function showLessContent(event) {
+    event.style.display = "none";
+    event.previousElementSibling.style.display="inline";
+    event.previousElementSibling.previousElementSibling.style.display="none";
   }
 </script>

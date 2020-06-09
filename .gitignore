@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 crawler/data
+url_exist.txt

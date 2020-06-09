@@ -1,6 +1,6 @@
 requests
 pandas
-beautifulsoap4
+bs4
 pysolr
 pyvi
 flask
