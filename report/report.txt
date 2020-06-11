@@ -1,0 +1,6 @@
+- Tìm hiểu thêm:
+	Solr: 	Cách vận hành máy chủ solr, log tìm kiếm, 
+		các tùy chỉnh cấu trúc tài liệu: tham số, mô hình xếp hạng
+	crawler: 
+	lưu trữ tài liệu thu thập
+- 
