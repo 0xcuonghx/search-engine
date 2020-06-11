@@ -1,6 +1,15 @@
-- Tìm hiểu thêm:
-	Solr: 	Cách vận hành máy chủ solr, log tìm kiếm, 
-		các tùy chỉnh cấu trúc tài liệu: tham số, mô hình xếp hạng
-	crawler: 
-	lưu trữ tài liệu thu thập
-- 
+- báo cáo
+Đ
+2.5 Mục lục
+3. Đặt vấn đề
+- solr:
+cấu trúc
+analyzer
+index
+searching
+lữu trữ
+config
+Vấn đề tiếng việt
+phương pháp đánh giá
+5. kết quả và hướng phát triển
+6. tài liệu tham khảo

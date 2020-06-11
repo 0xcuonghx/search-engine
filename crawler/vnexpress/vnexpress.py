@@ -82,3 +82,9 @@ def crawler () :
         articles += get_articles(link)
     
     return pandas.DataFrame(articles, columns=['title', 'url', 'content', 'content_clean'])
+
+
+clean = clean_data("Cô gái 20 tuổi, phổi đông đặc, thoát chết nhờ được  
+"thay cả hai lá phổi, trong ca ghép đầu tiên thuộc
+" loại này cho bệnh nhân Covid-19")
+print(clean)
