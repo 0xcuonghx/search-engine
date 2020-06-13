@@ -15,4 +15,4 @@ C:\solr-8.5.0\bin\solr.cmd start
 # crawler
 run.bat
 # start app.py
-pyhon search_engine/flask/app.py
+python search_engine/flask/app.py
